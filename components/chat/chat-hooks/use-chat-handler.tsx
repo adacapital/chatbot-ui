@@ -195,6 +195,8 @@ export const useChatHandler = () => {
   ) => {
     const startingInput = messageContent
 
+    console.log("handleSendMessage 2:",messageContent); 
+
     try {
       setUserInput("")
       setIsGenerating(true)
@@ -233,6 +235,8 @@ export const useChatHandler = () => {
 
       let retrievedFileItems: Tables<"file_items">[] = []
 
+      console.log("HERE1");
+
       if (
         (newMessageFiles.length > 0 || chatFiles.length > 0) &&
         useRetrieval
@@ -259,6 +263,8 @@ export const useChatHandler = () => {
           selectedAssistant
         )
 
+      console.log("HERE2");
+      
       let payload: ChatPayload = {
         chatSettings: chatSettings!,
         workspaceInstructions: selectedWorkspace!.instructions || "",
@@ -280,6 +286,8 @@ export const useChatHandler = () => {
           profile!,
           chatImages
         )
+        
+        console.log("HERE3");
 
         const response = await fetch("/api/chat/tools", {
           method: "POST",
@@ -307,6 +315,9 @@ export const useChatHandler = () => {
           setToolInUse
         )
       } else {
+
+        console.log("HERE4");
+
         if (modelData!.provider === "ollama") {
           generatedText = await handleLocalChat(
             payload,

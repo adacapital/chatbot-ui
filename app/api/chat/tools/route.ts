@@ -7,6 +7,8 @@ import OpenAI from "openai"
 import { ChatCompletionCreateParamsBase } from "openai/resources/chat/completions.mjs"
 
 export async function POST(request: Request) {
+  console.log("API Route Hit"); 
+  
   const json = await request.json()
   const { chatSettings, messages, selectedTools } = json as {
     chatSettings: ChatSettings
@@ -149,6 +151,8 @@ export async function POST(request: Request) {
             headers,
             body: JSON.stringify(bodyContent) // Use the extracted requestBody or the entire parsedArgs
           }
+
+          console.log("/api/chat/tools, fullUrl:", fullUrl);
 
           const response = await fetch(fullUrl, requestInit)
 
